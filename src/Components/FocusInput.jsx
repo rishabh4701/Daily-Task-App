@@ -49,7 +49,8 @@ function FocusInput() {
   };
 
   const handleCompletion = (e) => {
-    setIsCompleted(e.target.checked);
+    if (isCompleted) return;
+    setIsCompleted(true);
   };
 
   const handleKeyDown = (e) => {
@@ -59,7 +60,7 @@ function FocusInput() {
 
   return (
     <div className="min-h-screen w-full bg-black text-white flex flex-col items-center justify-center font-sans px-4 overflow-x-hidden">
-      
+
       {!isSet ? (
         <div className="flex flex-col items-center gap-7 w-full max-w-2xl animate-in fade-in duration-700">
           <h1 className="text-gray-500 uppercase tracking-widest text-sm">
@@ -97,11 +98,10 @@ function FocusInput() {
           </h2>
 
           <h1
-            className={`text-5xl md:text-7xl font-bold transition-all duration-500 ${
-              isCompleted
+            className={`text-5xl md:text-7xl font-bold transition-all duration-500 ${isCompleted
                 ? "text-gray-600 line-through blur-[1px]"
                 : "text-white"
-            }`}
+              }`}
           >
             {task}
           </h1>
@@ -113,7 +113,10 @@ function FocusInput() {
                 type="checkbox"
                 checked={isCompleted}
                 onChange={handleCompletion}
-                className="peer appearance-none w-8 h-8 border-2 border-gray-500 rounded-full checked:bg-green-500 checked:border-green-500 transition-all cursor-pointer"
+                disabled={isCompleted}
+                className={`peer appearance-none w-8 h-8 border-2 border-gray-500 rounded-full transition-all cursor-pointer
+    ${isCompleted ? "bg-green-500 border-green-500 cursor-not-allowed" : ""}
+  `}
               />
 
               <svg
@@ -133,11 +136,10 @@ function FocusInput() {
 
             <label
               htmlFor="daily-check"
-              className={`select-none text-lg font-medium transition-colors ${
-                isCompleted
+              className={`select-none text-lg font-medium transition-colors ${isCompleted
                   ? "text-green-500"
                   : "text-gray-400 group-hover:text-white"
-              }`}
+                }`}
             >
               {isCompleted ? "Completed" : "Mark as Done"}
             </label>
