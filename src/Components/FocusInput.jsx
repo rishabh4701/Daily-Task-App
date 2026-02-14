@@ -147,7 +147,7 @@ function FocusInput() {
 
           {isCompleted && (
             <p className="mt-4 text-gray-600 text-sm animate-pulse">
-              Great work. See you tomorrow.
+              Great work. See you tomorrow!.
             </p>
           )}
         </div>
